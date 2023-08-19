@@ -65,36 +65,68 @@ serch_point = st.text_input('검색하고 싶은 주소를 입력하세요')
 result_df = db.search_estate_data(serch_point)
 
 #------------------MAP------------------#
+import streamlit as st
+import folium
+import pandas as pd
 
-def create_map(dataframe):
-    # Create a base map with Seoul as the default center
-     m = folium.Map(location=[37.5665, 126.9780], zoom_start=11) 
+def create_map(dataframe, search_location):
+    # Calculate the center of the search results
+    center_lat = dataframe['lat'].mean()
+    center_lng = dataframe['lng'].mean()
 
-    # Function to display detailed information on marker click
-     def get_popup_content(row):
-               content = f"""
-               <strong>{row['시군구']}</strong><br>
-               <strong>{row['단지명']}</strong><br>
-               계약연월: {row['계약연월']}<br>
-               전용면적: {row['전용면적']}<br>
-               매매대금 평균: {row['매매대금_평균']}<br>
-               전세 평균: {row['전세_평균']}<br>
-               면적당 매매대금평균: {row['면적당_매매대금평균']}<br>
-               면적당 전세평균: {row['면적당_전세평균']}<br>
-               전세가율: {row['전세가율']}
-          """
-               return content
+    # Create a base map using the center of the search results
+    m = folium.Map(location=[center_lat, center_lng], zoom_start=11)
 
-     # Add markers to the map
-     for _, row in dataframe.iterrows():
-          popup_content = get_popup_content(row)
-          folium.Marker(
-               location=[row['lat'], row['lng']],
-               popup=folium.Popup(popup_content, max_width=400)
-          ).add_to(m)
+    def get_popup_content(row):
+        content = f"""
+        <strong>{row['시군구']}</strong><br>
+        <strong>{row['단지명']}</strong><br>
+        계약연월: {row['계약연월']}<br>
+        전용면적: {row['전용면적']}<br>
+        매매대금 평균: {row['매매대금_평균']}<br>
+        전세 평균: {row['전세_평균']}<br>
+        면적당 매매대금평균: {row['면적당_매매대금평균']}<br>
+        면적당 전세평균: {row['면적당_전세평균']}<br>
+        전세가율: {row['전세가율']}
+        """
+        return content
 
-     return m
+    for _, row in dataframe.iterrows():
+        popup_content = get_popup_content(row)
+        folium.Marker(
+            location=[row['lat'], row['lng']],
+            popup=folium.Popup(popup_content, max_width=400)
+        ).add_to(m)
 
-# Assuming result_df is your dataframe with search results:
-m = create_map(result_df)
-st_data = st_folium(m, width=725)
+    return m
+
+# Streamlit app
+def main():
+    st.title("Search Map by Location")
+
+    # Input for search location
+    search_location = st.text_input('Enter location to search:')
+
+    # If the button is clicked, filter the dataframe by the searched location
+    if st.button('Search'):
+        # Dummy: Filter your data based on the search_location
+        # result_df = original_df[original_df['시군구'] == search_location] 
+        result_df = pd.DataFrame({
+            '시군구': ['Example'],
+            '단지명': ['Example Name'],
+            '계약연월': ['2023-08'],
+            '전용면적': [30],
+            '매매대금_평균': [1000],
+            '전세_평균': [500],
+            '면적당_매매대금평균': [33333],
+            '면적당_전세평균': [16666],
+            '전세가율': [0.5],
+            'lat': [37.5665],
+            'lng': [126.9780]
+        }) # This is dummy data, replace it with actual filtering
+
+        m = create_map(result_df, search_location)
+        st_folium(m, width=725)
+
+if __name__ == '__main__':
+    main()
