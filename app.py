@@ -61,7 +61,6 @@ class RealEstateDB:
                self.conn.close()
 
 db = RealEstateDB()
-serch_point = st.text_input('검색하고 싶은 주소를 입력하세요')
 result_df = db.search_estate_data(serch_point)
 
 #------------------MAP------------------#
@@ -111,22 +110,22 @@ def main():
     if st.button('Search'):
         # Dummy: Filter your data based on the search_location
         # result_df = original_df[original_df['시군구'] == search_location] 
-        result_df = pd.DataFrame({
-            '시군구': ['Example'],
-            '단지명': ['Example Name'],
-            '계약연월': ['2023-08'],
-            '전용면적': [30],
-            '매매대금_평균': [1000],
-            '전세_평균': [500],
-            '면적당_매매대금평균': [33333],
-            '면적당_전세평균': [16666],
-            '전세가율': [0.5],
-            'lat': [37.5665],
-            'lng': [126.9780]
-        }) # This is dummy data, replace it with actual filtering
+          result_df = pd.DataFrame({
+               '시군구': ['Example'],
+               '단지명': ['Example Name'],
+               '계약연월': ['2023-08'],
+               '전용면적': [30],
+               '매매대금_평균': [1000],
+               '전세_평균': [500],
+               '면적당_매매대금평균': [33333],
+               '면적당_전세평균': [16666],
+               '전세가율': [0.5],
+               'lat': [37.5665],
+               'lng': [126.9780]
+          }) # This is dummy data, replace it with actual filtering
 
-        m = create_map(result_df, search_location)
-        st_folium(m, width=725)
+          m = create_map(result_df, search_location)
+          st_folium(m, width=725)
 
 if __name__ == '__main__':
     main()
