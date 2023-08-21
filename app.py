@@ -13,7 +13,7 @@ class RealEstateDB:
 
      def connect(self):
           # MariaDB 연결
-          self.conn = pymysql.connect(host='', user='', password='W', charset='utf8', database='')
+          self.conn = pymysql.connect(host='khrpa.com', user='joyunseo77', password='whgkdbsWhdbstj77', charset='utf8', database='joyunseo77')
           self.cursor = self.conn.cursor()
 
      def is_connected(self):
