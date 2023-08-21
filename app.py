@@ -1,110 +1,60 @@
-import pandas as pd
-import pymysql
-import folium
 import streamlit as st
-from streamlit_folium import st_folium
+from pyparsing import empty
 
-class RealEstateDB:
-     def __init__(self):
-          self.conn = None
-          self.cursor = None
-          self.connect()
-          self.create_table()
+st.set_page_config(
+    page_icon=":goose:",
+    page_title="부지런한 거위",
+    layout="wide",
+)
 
-     def connect(self):
-          # MariaDB 연결
-          user = st.secrets["db_user"]
-          password = st.secrets["db_password"]
-          self.conn = pymysql.connect(host="khrpa.com",user=user, password=password, charset='utf8', database="joyunseo77")
-          self.cursor = self.conn.cursor()
-
-     def is_connected(self):
-          # 연결 상태 확인
-          return self.conn and self.conn.open
-
-     def create_table(self):
-          create_table_query = """
-               CREATE TABLE IF NOT EXISTS estatedata (
-               시군구 VARCHAR(255),
-               단지명 VARCHAR(255),
-               계약연월 INT,
-               전용면적 FLOAT,
-               매매대금_평균 FLOAT,
-               전세_평균 FLOAT,
-               면적당_매매대금평균 FLOAT,
-               면적당_전세평균 FLOAT,
-               전세가율 FLOAT,
-               lat FLOAT,
-               lng FLOAT
-               ) CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci
-          """
-          self.cursor.execute(create_table_query)
-          self.conn.commit()
-
-     def search_estate_data(self, keyword):
-          search_query = """
-               SELECT 시군구, 단지명, 계약연월, 전용면적, 매매대금_평균, 전세_평균, 면적당_매매대금평균, 면적당_전세평균, 전세가율,lat,lng 
-               FROM estate_data
-               WHERE 시군구 LIKE %s OR 단지명 LIKE %s
-          """
-          if not self.is_connected():
-               self.connect()
-          
-          self.cursor.execute(search_query, (f"%{keyword}%", f"%{keyword}%"))
-          results = self.cursor.fetchall()
-
-          # 결과를 pandas DataFrame으로 반환
-          columns = ["시군구", "단지명", "계약연월", "전용면적", "매매대금_평균", "전세_평균", "면적당_매매대금평균", "면적당_전세평균", "전세가율","lat","lng"]
-          return pd.DataFrame(results, columns=columns)
-
-     def __del__(self):
-          # 연결 종료
-          if self.is_connected():
-               self.conn.close()
-
-db = RealEstateDB()
-serch_point = st.text_input('검색하고 싶은 주소를 입력하세요')
-result_df = db.search_estate_data(serch_point)
+empty1,col1,empty2 = st.columns([0.3,1.0,0.3])
+empty1,col2,col3,empty2 = st.columns([0.3,0.5,0.5,0.3])
+empty1,col4,col5,empty2 = st.columns([0.3,0.5,0.5,0.3])
 
 
-#-----------------------MAP-----------------------#
-def create_map(dataframe):
-    # Calculate the average latitude and longitude from the data
-    avg_lat = dataframe['lat'].mean()
-    avg_lng = dataframe['lng'].mean()
+with empty1 :
+    empty() # 여백부분1
 
-    # Create a base map with the average location as the center
-    m = folium.Map(location=[avg_lat, avg_lng], zoom_start=11)
+with col1 :
+    st.header("""
+            😎 떼 돈 팀 😎
+            #### 떼인 돈 받아들입니다!!! 
+            """)
+with col2:
+    st.image('./img/imjinwoo.png', width=200)
+    st.write("""
+    ## 임진우
+    """)
+    st.write("""
+    아이디어와 의욕이 넘치는 팀장!! 💯
+    """)
 
-    # Function to display detailed information on marker click
-    def get_popup_content(row):
-        content = f"""
-            <strong>{row['시군구']}</strong><br>
-            <strong>{row['단지명']}</strong><br>
-            계약연월: {row['계약연월']}<br>
-            전용면적: {row['전용면적']}<br>
-            매매대금 평균: {row['매매대금_평균']}<br>
-            전세 평균: {row['전세_평균']}<br>
-            면적당 매매대금평균: {row['면적당_매매대금평균']}<br>
-            면적당 전세평균: {row['면적당_전세평균']}<br>
-            전세가율: {row['전세가율']}
-        """
-        return content
+with col3:
+    st.image('./img/kky.png', width=200)
+    st.write("""
+    ## 강규욱
+    """)
+    st.write("""
+    잘 생기고 활기 넘치는 코딩네이터! 🎸
+    """)
 
-    # Add markers to the map
-    for _, row in dataframe.iterrows():
-        popup_content = get_popup_content(row)
-        folium.Marker(
-            location=[row['lat'], row['lng']],
-            popup=folium.Popup(popup_content, max_width=400)
-        ).add_to(m)
+with col4:
+    st.image('./img/bny.png', width=200)
+    st.write("""
+    ## 배나연
+    """)
+    st.write("""
+    똑똑하고 시야가 넓은 초고수 기획자!! 🦚
+    """)
 
-    return m
+with col5:
+    st.image('./img/jys.png', width=200)
+    st.write("""
+    ## 조윤서
+    """)
+    st.write("""
+    신바람나게 팀 능력을 끌어올리는 서포터! 🐝
+    """)
 
-# Assuming result_df is your dataframe with search results:
-m = create_map(result_df)
-st_data = st_folium(m, width=725)
-
-
-
-
+with empty2 :
+    empty() # 여백부분1
