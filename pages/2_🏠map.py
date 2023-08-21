@@ -81,7 +81,6 @@ def create_map(dataframe):
         content = f"""
             <strong>{row['시군구']}</strong><br>
             <strong>{row['단지명']}</strong><br>
-            계약연월: {row['계약연월']}<br>
             전용면적: {row['전용면적']}<br>
             매매대금 평균: {row['매매대금_평균']}<br>
             전세 평균: {row['전세_평균']}<br>
