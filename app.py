@@ -16,8 +16,7 @@ class RealEstateDB:
           host = st.secrets["db_host"]
           user = st.secrets["db_user"]
           password = st.secrets["db_password"]
-          database = st.secrets["DB_database"]
-          self.conn = pymysql.connect(host=host,user=user, password=password, charset='utf8', database=database)
+          self.conn = pymysql.connect(host=host,user=user, password=password, charset='utf8', database="joyunseo77")
           self.cursor = self.conn.cursor()
 
      def is_connected(self):
