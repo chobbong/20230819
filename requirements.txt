@@ -3,3 +3,4 @@ pymysql
 folium
 streamlit_folium
 pandas
+pyparsing
