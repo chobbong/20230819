@@ -3,4 +3,7 @@ pymysql
 folium
 streamlit_folium
 pandas
-pyparsing
+markdown
+scikit-learn
+matplotlib
+seaborn
