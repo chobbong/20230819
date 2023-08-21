@@ -34,7 +34,7 @@ with col2:
     """)
 
 with col3:
-    st.image('./img/kimwooyoung', width=200)
+    st.image('./img/kimwooyoung.png', width=200)
     st.write("""
     ## 김우영
     """)
