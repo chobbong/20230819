@@ -7,7 +7,7 @@ st.set_page_config(
     layout="wide",
 )
 
-tab1, tab2, tab3 = st.tabs(["Introduction", "Project 개요"])
+tab1, tab2 = st.tabs(["Introduction", "Project 개요"])
 
 with tab1:
      st.header("""
