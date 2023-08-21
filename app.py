@@ -5,14 +5,14 @@ st.set_page_config(
     page_title="떼돈팀",
     layout="wide",
 )
-
-col1,col2 = st.columns([1,1])
-col3,col4 = st.columns([1,1])
-
 st.header("""
           😎 떼 돈 팀 😎
             #### 떼인 돈 받아들입니다!!! 
           """)
+
+col1,col2 = st.columns([1,1])
+col3,col4 = st.columns([1,1])
+
 
     
 with col1:
