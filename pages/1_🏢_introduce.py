@@ -11,7 +11,7 @@ st.header("""
           Introduction
           """)
 
-st.image('./img/lease_sago.png', width=901)
+st.image('./img/lease_sago.png', width=700)
 
 st.write("""
          전세 사기의 피해자 10명중 7명은 2030세대.  
