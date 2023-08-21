@@ -3,7 +3,7 @@ from pyparsing import empty
 
 st.set_page_config(
     page_icon=":goose:",
-    page_title="부지런한 거위",
+    page_title="떼돈팀",
     layout="wide",
 )
 
@@ -30,21 +30,21 @@ with col2:
     """)
 
 with col3:
-    st.image('./img/kky.png', width=200)
+    st.image('./img/kimbyumsung.png', width=200)
     st.write("""
-    ## 강규욱
+    ## 김범성
     """)
     st.write("""
-    잘 생기고 활기 넘치는 코딩네이터! 🎸
+    차분하게 떼인 돈을 받아 올 방법을 기획하는 코딩리스트! 🎸
     """)
 
 with col4:
-    st.image('./img/bny.png', width=200)
+    st.image('./img/kimwooyoung', width=200)
     st.write("""
-    ## 배나연
+    ## 김우영
     """)
     st.write("""
-    똑똑하고 시야가 넓은 초고수 기획자!! 🦚
+    실행력과 문제해결능력을 갖춘 모델링러! 🦚
     """)
 
 with col5:
@@ -53,7 +53,7 @@ with col5:
     ## 조윤서
     """)
     st.write("""
-    신바람나게 팀 능력을 끌어올리는 서포터! 🐝
+    배후에 가려진 알게 모르게 서포터! 🐝
     """)
 
 with empty2 :
