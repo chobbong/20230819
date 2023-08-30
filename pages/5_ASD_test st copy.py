@@ -23,8 +23,11 @@ class RealEstateForecast:
             os.makedirs(self.temp_folder)
 
     def connect(self):
-        self.conn = pymysql.connect(host="khrpa.com", user='joyunseo77', password='WhgkdbsWhdbstj77', charset='utf8', database="joyunseo77")
-        self.cursor = self.conn.cursor()
+       # MariaDB 연결
+          user = st.secrets["db_user"]
+          password = st.secrets["db_password"]
+          self.conn = pymysql.connect(host="khrpa.com",user=user, password=password, charset='utf8', database="joyunseo77")
+          self.cursor = self.conn.cursor()
 
     def is_connected(self):
         return self.conn and self.conn.open
