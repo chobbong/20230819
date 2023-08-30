@@ -9,4 +9,4 @@ matplotlib
 seaborn
 pyparsing
 os
-keras==2.13.1
+keras
