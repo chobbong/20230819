@@ -8,5 +8,4 @@ scikit-learn
 matplotlib
 seaborn
 pyparsing
-os
 keras
