@@ -9,3 +9,4 @@ matplotlib
 seaborn
 pyparsing
 keras
+tensorflow
