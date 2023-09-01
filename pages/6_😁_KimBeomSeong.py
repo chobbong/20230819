@@ -16,16 +16,16 @@ class Model:
         self.cursor = None
         self.connect()
         # target: 사용할 target
-        self.model1 = joblib.load('./kbs/save/apt_target60.joblib')
-        self.model2 = joblib.load('./kbs/save/apt_target70.joblib')
-        self.model3 = joblib.load('./kbs/save/apt_target80.joblib')
-        self.model4 = joblib.load('./kbs/save/apt_target90.joblib')
+        self.model1 = joblib.load('./save/apt_target60.joblib')
+        self.model2 = joblib.load('./save/apt_target70.joblib')
+        self.model3 = joblib.load('./save/apt_target80.joblib')
+        self.model4 = joblib.load('./save/apt_target90.joblib')
 
     def connect(self):
         # MariaDB 연결
-        # user = st.secrets["db_user"]
-        # password = st.secrets["db_password"]
-        self.conn = pymysql.connect(host="khrpa.com", user='joyunseo77', password='WhgkdbsWhdbstj77', charset='utf8', database="joyunseo77")
+        user = st.secrets["db_user"]
+        password = st.secrets["db_password"]
+        self.conn = pymysql.connect(host="khrpa.com", user=user, password=password, charset='utf8', database="joyunseo77")
         self.cursor = self.conn.cursor()
 
     def is_connected(self):
@@ -69,8 +69,8 @@ class Model:
 
         #-------------------------- 입력데이터 전처리 시작------------------
         # 광역, 시군구 encoding
-        le1 = joblib.load('./kbs/save/sigungu.joblib')
-        le2 = joblib.load('./kbs/save/gwangyeok.joblib')
+        le1 = joblib.load('./save/sigungu.joblib')
+        le2 = joblib.load('./save/gwangyeok.joblib')
         city_num.at['시군구'] = le1.transform([city_num['시군구']])[0]
         city_num.at['광역'] = le2.transform([city_num['광역']])[0]
 
