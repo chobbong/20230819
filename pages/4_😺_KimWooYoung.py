@@ -177,8 +177,10 @@ def main():
                 return
 
         selected_city_lot_num = st.selectbox("원하는 번호를 선택하세요:", options=matching_city_lot_nums)
-
-        results = forecast_model.forecast_and_save(selected_city_lot_num)
+        
+        with st.spinner('예측을 수행하는 중...'):
+            results = forecast_model.forecast_and_save(selected_city_lot_num)
+        
         for result in results:
             st.write(result["forecast"])
             st.write(f"매매금 예측값: {round(result['매매금'], 2)}")
